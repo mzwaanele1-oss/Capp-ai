@@ -1,0 +1,6 @@
+{
+  "name": "CAPP AI",
+  "description": "Think smarter. Create more. Modern, intelligent AI assistant with conversation memory, image understanding, creative tools, and web intelligence.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
