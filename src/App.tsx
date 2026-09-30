@@ -19,6 +19,7 @@ import { ToolsModal } from './components/ToolsModal';
 import { ImageStudioModal } from './components/ImageStudioModal';
 import { ShareModal } from './components/ShareModal';
 import { WelcomeModal } from './components/WelcomeModal';
+import { GitHubCompilationModal } from './components/GitHubCompilationModal';
 import { PWAInstallPrompt } from './components/pwa/PWAInstallPrompt';
 import { logToolUsage } from './utils/usageTracking';
 
@@ -46,6 +47,7 @@ export default function App() {
   const [isImageStudioOpen, setIsImageStudioOpen] = useState(false);
   const [isShareOpen, setIsShareOpen] = useState(false);
   const [isWelcomeOpen, setIsWelcomeOpen] = useState(() => !storage.isOnboarded());
+  const [isGitHubModalOpen, setIsGitHubModalOpen] = useState(false);
 
   // Active abort controller
   const abortControllerRef = useRef<AbortController | null>(null);
@@ -447,6 +449,7 @@ export default function App() {
         onOpenSettings={() => setIsSettingsOpen(true)}
         onOpenTools={() => setIsToolsOpen(true)}
         onOpenImageStudio={() => setIsImageStudioOpen(true)}
+        onOpenGitHubModal={() => setIsGitHubModalOpen(true)}
         user={user}
       />
 
@@ -506,6 +509,7 @@ export default function App() {
         onClearAllConversations={handleClearAllConversations}
         onExportData={handleExportData}
         conversations={conversations}
+        onOpenGitHubModal={() => setIsGitHubModalOpen(true)}
       />
 
       <ToolsModal
@@ -554,6 +558,11 @@ export default function App() {
           setIsWelcomeOpen(false);
           setIsToolsOpen(true);
         }}
+      />
+
+      <GitHubCompilationModal
+        isOpen={isGitHubModalOpen}
+        onClose={() => setIsGitHubModalOpen(false)}
       />
 
       {/* Non-intrusive Android & PWA Install Bottom-Sheet Prompt */}

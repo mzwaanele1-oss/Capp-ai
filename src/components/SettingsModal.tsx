@@ -17,6 +17,7 @@ import {
   Volume2,
   VolumeX,
   BarChart3,
+  Github,
 } from 'lucide-react';
 import { AppSettings, MemoryItem, UserProfile, ResponseStyle, ThemeMode, Conversation } from '../types';
 import { CappLogo } from './CappLogo';
@@ -39,6 +40,7 @@ interface SettingsModalProps {
   onExportData: () => void;
   conversations?: Conversation[];
   initialTab?: 'general' | 'model' | 'usage' | 'memory' | 'privacy' | 'account' | 'about';
+  onOpenGitHubModal?: () => void;
 }
 
 type TabType = 'general' | 'model' | 'usage' | 'memory' | 'privacy' | 'account' | 'about';
@@ -58,6 +60,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
   onExportData,
   conversations = [],
   initialTab = 'general',
+  onOpenGitHubModal,
 }) => {
   // Support Android Back navigation to close modal
   useAndroidBackNavigation(isOpen, onClose);
@@ -737,16 +740,37 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                     <span className="text-neutral-500 block">AI Backend</span>
                     <span className="text-neutral-200">Isolated Express Server Proxy</span>
                   </div>
+                  <div>
+                    <span className="text-neutral-500 block">CI/CD Compilation</span>
+                    <span className="text-emerald-400 font-mono">GitHub Actions Only</span>
+                  </div>
+                  <div>
+                    <span className="text-neutral-500 block">Android Package</span>
+                    <span className="text-neutral-200">compile-android-apk.yml</span>
+                  </div>
                 </div>
 
-                <div className="pt-4 border-t border-neutral-800">
+                <div className="pt-4 border-t border-neutral-800 space-y-2">
+                  {onOpenGitHubModal && (
+                    <button
+                      onClick={() => {
+                        onClose();
+                        onOpenGitHubModal();
+                      }}
+                      className="flex items-center justify-center gap-2 w-full py-2.5 px-4 rounded-xl bg-neutral-800 hover:bg-neutral-700 text-white font-medium text-xs border border-neutral-700 transition-colors shadow-sm cursor-pointer"
+                    >
+                      <Github className="w-4 h-4 text-white" />
+                      <span>Compile App via GitHub Actions</span>
+                    </button>
+                  )}
+
                   <a
-                    href="/capp-source-code.zip"
-                    download="capp-source-code.zip"
-                    className="flex items-center justify-center gap-2 w-full py-2.5 px-4 rounded-xl bg-neutral-800 hover:bg-neutral-700 text-white font-medium text-xs border border-neutral-700 transition-colors shadow-sm"
+                    href="/capp-ai-project.zip"
+                    download="capp-ai-project.zip"
+                    className="flex items-center justify-center gap-2 w-full py-2 px-4 rounded-xl bg-neutral-900 hover:bg-neutral-850 text-neutral-300 hover:text-white font-medium text-xs border border-neutral-800 transition-colors"
                   >
-                    <Download className="w-4 h-4 text-sky-400" />
-                    <span>Download Complete Source Code (.ZIP)</span>
+                    <Download className="w-3.5 h-3.5 text-sky-400" />
+                    <span>Download Project File (.ZIP)</span>
                   </a>
                 </div>
               </div>

@@ -87,13 +87,48 @@ npm start
 
 ---
 
-## 📱 Packaging as an Android App (PWABuilder / TWA)
+## ⚡ Compile and Build App Using GitHub Only
 
-1. Deploy your app to your domain or hosting service (e.g. Firebase Hosting, Cloud Run, Vercel).
-2. Go to [PWABuilder](https://www.pwabuilder.com).
-3. Enter your live app URL.
-4. Click **"Package for Stores"** > **"Android"**.
-5. Download your generated APK / AAB package ready for installation or the Google Play Store!
+This repository is configured to **compile automatically using GitHub Actions only** whenever you push to GitHub, eliminating any need for PWABuilder!
+
+### 1. Push to Your GitHub Repository
+
+Initialize and push your repository to GitHub using the automated script:
+
+```bash
+npm run push:github
+```
+
+Or execute manually:
+
+```bash
+git init
+git add .
+git commit -m "Initial commit for CAPP AI"
+git branch -M main
+git remote add origin https://github.com/YOUR_USERNAME/YOUR_REPOSITORY.git
+git push -u origin main
+```
+
+### 2. Automated GitHub Actions Compilation Workflows
+
+When you push code to your `main` branch, GitHub immediately triggers automated workflows:
+
+| Workflow | Path | What It Compiles & Builds |
+|---|---|---|
+| **Compile & Build Web App** | `.github/workflows/compile-app.yml` | Validates TypeScript, generates icons, runs `npm run build`, and creates downloadable `dist/` & `capp-ai-project.zip` artifacts |
+| **Compile Android APK** | `.github/workflows/compile-android-apk.yml` | Packages the web app into an Android TWA APK directly on GitHub runners using Java 17 and Android SDK |
+| **Deploy to GitHub Pages** | `.github/workflows/deploy-github-pages.yml` | Deploys live web preview to GitHub Pages |
+
+### 3. Downloading Compiled Builds from GitHub
+
+1. Go to your repository on GitHub (`https://github.com/YOUR_USERNAME/YOUR_REPOSITORY`).
+2. Click the **"Actions"** tab at the top.
+3. Click on the latest workflow run.
+4. Scroll down to the **"Artifacts"** section to download:
+   - `capp-ai-android-apk` (compiled Android APK & assets)
+   - `capp-ai-web-build` (compiled static web build)
+   - `capp-ai-project-archive` (full portable project zip)
 
 ---
 

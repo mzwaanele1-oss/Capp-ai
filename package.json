@@ -6,8 +6,9 @@
   "scripts": {
     "dev": "tsx server.ts",
     "generate:icons": "node scripts/generate-pwa-icons.js",
-    "export:zip": "python3 scripts/export-zip.py public/capp-source-code.zip && cp public/capp-source-code.zip dist/ 2>/dev/null || true",
-    "build": "node scripts/generate-pwa-icons.js && python3 scripts/export-zip.py public/capp-source-code.zip && vite build && mkdir -p build/web && cp -r dist/* build/web/ && cp public/capp-source-code.zip build/web/ && cp public/capp-source-code.zip dist/",
+    "export:zip": "python3 scripts/export-zip.py public/capp-ai-project.zip && cp public/capp-ai-project.zip dist/ 2>/dev/null || true",
+    "push:github": "bash scripts/push-to-github.sh",
+    "build": "node scripts/generate-pwa-icons.js && python3 scripts/export-zip.py public/capp-ai-project.zip && vite build && mkdir -p build/web && cp -r dist/* build/web/ && cp public/capp-ai-project.zip build/web/ && cp public/capp-ai-project.zip dist/",
     "start": "tsx server.ts",
     "preview": "vite preview",
     "clean": "rm -rf dist server.js",

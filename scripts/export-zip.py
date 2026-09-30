@@ -5,7 +5,7 @@ import shutil
 
 def create_source_zip(primary_target):
     # Directories and files to include
-    include_dirs = ['src', 'public', 'web', 'scripts']
+    include_dirs = ['src', 'public', 'web', 'scripts', '.github']
     include_files = [
         'package.json',
         'tsconfig.json',
@@ -17,7 +17,8 @@ def create_source_zip(primary_target):
         'firebase.json',
         'firestore.rules',
         'README.md',
-        '.env.example'
+        '.env.example',
+        '.gitignore'
     ]
 
     # Patterns or directory names to strictly ignore
@@ -41,8 +42,8 @@ def create_source_zip(primary_target):
             if not os.path.isdir(dir_name):
                 continue
             for root, dirs, files in os.walk(dir_name):
-                # Filter out ignored dirs in-place
-                dirs[:] = [d for d in dirs if d not in ignored_names and not d.startswith('.')]
+                # Filter out ignored dirs in-place (allow .github)
+                dirs[:] = [d for d in dirs if d not in ignored_names and (d == '.github' or not d.startswith('.'))]
                 for file in files:
                     ext = os.path.splitext(file)[1].lower()
                     if ext in ignored_extensions or file in ignored_names:

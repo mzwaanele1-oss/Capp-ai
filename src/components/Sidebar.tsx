@@ -20,6 +20,7 @@ import {
   Download,
   Smartphone,
   CheckCircle2,
+  Github,
 } from 'lucide-react';
 import { Conversation, UserProfile } from '../types';
 import { CappLogo } from './CappLogo';
@@ -44,6 +45,7 @@ interface SidebarProps {
   isInstallable?: boolean;
   isInstalled?: boolean;
   onInstall?: () => void;
+  onOpenGitHubModal?: () => void;
 }
 
 export const Sidebar: React.FC<SidebarProps> = ({
@@ -65,6 +67,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
   isInstallable = false,
   isInstalled = false,
   onInstall,
+  onOpenGitHubModal,
 }) => {
   // Support Android Back navigation to close mobile drawer
   useAndroidBackNavigation(isOpenMobile, onCloseMobile);
@@ -367,13 +370,31 @@ export const Sidebar: React.FC<SidebarProps> = ({
             onOpenSettings('about');
             onCloseMobile();
           }}
-          className="w-full flex items-center justify-between px-2.5 py-2 rounded-xl text-xs text-neutral-400 hover:text-white hover:bg-neutral-900 transition-colors"
+          className="w-full flex items-center justify-between px-2.5 py-1.5 rounded-xl text-xs text-neutral-400 hover:text-white hover:bg-neutral-900 transition-colors"
         >
           <div className="flex items-center gap-2">
             <Info className="w-3.5 h-3.5 text-neutral-400" />
             <span>About CAPP AI</span>
           </div>
           <span className="text-[10px] font-mono text-neutral-500">v1.0.0</span>
+        </button>
+
+        {/* Compile with GitHub Actions */}
+        <button
+          onClick={() => {
+            if (onOpenGitHubModal) onOpenGitHubModal();
+            onCloseMobile();
+          }}
+          className="w-full flex items-center justify-between px-2.5 py-1.5 rounded-xl text-xs text-neutral-400 hover:text-white hover:bg-neutral-900 transition-colors"
+          title="Compile App using GitHub Actions"
+        >
+          <div className="flex items-center gap-2">
+            <Github className="w-3.5 h-3.5 text-white" />
+            <span>Compile with GitHub</span>
+          </div>
+          <span className="text-[10px] px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-mono">
+            CI/CD
+          </span>
         </button>
 
         {/* Export Source Code (.ZIP) */}
